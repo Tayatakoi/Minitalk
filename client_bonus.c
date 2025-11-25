@@ -6,13 +6,13 @@
 /*   By: samamaev <samamaev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 23:13:13 by samamaev          #+#    #+#             */
-/*   Updated: 2025/11/25 23:29:04 by samamaev         ###   ########.fr       */
+/*   Updated: 2025/11/26 00:19:20 by samamaev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
 
-volatile sig_atomic_t g_ack_received = 0;
+volatile sig_atomic_t	g_ack_received = 0;
 
 void	ack_handler(int sig)
 {
