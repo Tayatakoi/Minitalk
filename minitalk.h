@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <limits.h>
 
 void	signal_handler(int sig);
 void	ft_putnbr(int n);

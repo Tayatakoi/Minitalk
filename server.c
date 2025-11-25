@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-unsigned char	g_current_char = 0;
+unsigned char	g_building_char = 0;
 
 void	ft_putnbr(int n)
 {
@@ -28,15 +28,15 @@ void	signal_handler(int sig)
 {
 	static int	bit_count = 0;
 
-	g_current_char = g_current_char << 1;
+	g_building_char = g_building_char << 1;
 	if (sig == SIGUSR2)
-		g_current_char = g_current_char | 1;
+		g_building_char = g_building_char | 1;
 	bit_count++;
 	if (bit_count == 8)
 	{
-		write(1, &g_current_char, 1);
+		write(1, &g_building_char, 1);
 		bit_count = 0;
-		g_current_char = 0;
+		g_building_char = 0;
 	}
 }
 

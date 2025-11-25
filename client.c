@@ -19,11 +19,17 @@ int	ft_atoi(char *str)
 
 	result = 0;
 	i = 0;
+	if (!str[0] || str[0] < '0' || str[0] > '9')
+		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if (result > (INT_MAX - (str[i] - '0')) / 10)
+			return (-1);
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
+	if (str[i] != '\0')
+		return (-1);
 	return (result);
 }
 
@@ -38,7 +44,7 @@ void	send_char(int pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(100);
+		usleep(50);
 		bit--;
 	}
 }
@@ -53,6 +59,7 @@ void	send_string(int pid, char *str)
 		send_char(pid, str[i]);
 		i++;
 	}
+	send_char(pid, '\0');
 }
 
 int	main(int ac, char **av)
@@ -65,6 +72,11 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
+	if (server_pid <= 0)
+	{
+		write(2, "Error: Invalid PID\n", 19);
+		return (1);
+	}
 	send_string(server_pid, av[2]);
 	return (0);
 }
